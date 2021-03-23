@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "featured_works",
+  "info": {
+    "name": "featured-works"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "images": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    }
+  }
+}

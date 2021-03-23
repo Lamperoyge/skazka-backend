@@ -1,0 +1,88 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "name": "Orders",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "images": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "specialInstructions": {
+      "type": "richtext"
+    },
+    "totalPrice": {
+      "type": "float"
+    },
+    "numberOfProducts": {
+      "type": "integer"
+    },
+    "shippingReceived": {
+      "type": "boolean"
+    },
+    "shippingSentBack": {
+      "type": "boolean"
+    },
+    "imageType": {
+      "model": "image-type"
+    },
+    "picturesTotal": {
+      "type": "integer",
+      "min": 3
+    },
+    "users_permissions_user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "orders"
+    },
+    "category": {
+      "model": "order-category"
+    },
+    "invoices": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "files",
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "order_status": {
+      "model": "order-status"
+    },
+    "user_email": {
+      "type": "email",
+      "required": true
+    },
+    "charge_id": {
+      "type": "string",
+      "private": false,
+      "required": true,
+      "unique": true
+    },
+    "user_name": {
+      "type": "string"
+    },
+    "user_cui": {
+      "type": "string"
+    },
+    "user_business_name": {
+      "type": "string"
+    }
+  }
+}
