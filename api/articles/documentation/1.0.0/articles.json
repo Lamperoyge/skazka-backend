@@ -516,7 +516,8 @@
     "schemas": {
       "Articles": {
         "required": [
-          "id"
+          "id",
+          "slug"
         ],
         "properties": {
           "id": {
@@ -601,6 +602,9 @@
           "content": {
             "type": "string"
           },
+          "slug": {
+            "type": "string"
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -608,6 +612,9 @@
         }
       },
       "NewArticles": {
+        "required": [
+          "slug"
+        ],
         "properties": {
           "title": {
             "type": "string"
@@ -616,6 +623,9 @@
             "type": "string"
           },
           "content": {
+            "type": "string"
+          },
+          "slug": {
             "type": "string"
           },
           "published_at": {
