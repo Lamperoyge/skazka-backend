@@ -45,6 +45,8 @@ module.exports = {
       user_name,
       user_business_name,
       user_cui,
+      formatType,
+      afterFinisherdProduct,
     } = ctx.request.body;
     const stripeAmount = Math.round(
       (totalPriceCalculator(numberOfProducts, picturesTotal) * 100) / 100
@@ -62,6 +64,8 @@ module.exports = {
         category,
         user_business_name,
         user_cui,
+        formatType,
+        afterFinisherdProduct,
         order_status: 1,
       });
       ctx.send(order);

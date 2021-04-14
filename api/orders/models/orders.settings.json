@@ -83,6 +83,18 @@
     },
     "user_business_name": {
       "type": "string"
+    },
+    "formatType": {
+      "model": "format"
+    },
+    "afterFinisherdProduct": {
+      "type": "enumeration",
+      "enum": [
+        "doneaza",
+        "sendBack"
+      ],
+      "default": "doneaza",
+      "required": true
     }
   }
 }

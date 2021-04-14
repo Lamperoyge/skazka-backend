@@ -589,7 +589,8 @@
         "required": [
           "id",
           "user_email",
-          "charge_id"
+          "charge_id",
+          "afterFinisherdProduct"
         ],
         "properties": {
           "id": {
@@ -903,6 +904,39 @@
           "user_business_name": {
             "type": "string"
           },
+          "formatType": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "afterFinisherdProduct": {
+            "type": "string",
+            "default": "doneaza",
+            "enum": [
+              "doneaza",
+              "sendBack"
+            ]
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -912,7 +946,8 @@
       "NewOrders": {
         "required": [
           "user_email",
-          "charge_id"
+          "charge_id",
+          "afterFinisherdProduct"
         ],
         "properties": {
           "specialInstructions": {
@@ -959,6 +994,17 @@
           },
           "user_business_name": {
             "type": "string"
+          },
+          "formatType": {
+            "type": "string"
+          },
+          "afterFinisherdProduct": {
+            "type": "string",
+            "default": "doneaza",
+            "enum": [
+              "doneaza",
+              "sendBack"
+            ]
           },
           "published_at": {
             "type": "string",

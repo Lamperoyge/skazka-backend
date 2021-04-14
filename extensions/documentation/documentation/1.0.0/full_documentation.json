@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "03/30/2021 10:23:19 AM"
+    "x-generation-date": "04/14/2021 5:10:03 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -8007,7 +8007,8 @@
         "required": [
           "id",
           "user_email",
-          "charge_id"
+          "charge_id",
+          "afterFinisherdProduct"
         ],
         "properties": {
           "id": {
@@ -8321,6 +8322,39 @@
           "user_business_name": {
             "type": "string"
           },
+          "formatType": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "afterFinisherdProduct": {
+            "type": "string",
+            "default": "doneaza",
+            "enum": [
+              "doneaza",
+              "sendBack"
+            ]
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -8330,7 +8364,8 @@
       "NewOrders": {
         "required": [
           "user_email",
-          "charge_id"
+          "charge_id",
+          "afterFinisherdProduct"
         ],
         "properties": {
           "specialInstructions": {
@@ -8377,6 +8412,17 @@
           },
           "user_business_name": {
             "type": "string"
+          },
+          "formatType": {
+            "type": "string"
+          },
+          "afterFinisherdProduct": {
+            "type": "string",
+            "default": "doneaza",
+            "enum": [
+              "doneaza",
+              "sendBack"
+            ]
           },
           "published_at": {
             "type": "string",
@@ -8828,7 +8874,8 @@
               "required": [
                 "id",
                 "user_email",
-                "charge_id"
+                "charge_id",
+                "afterFinisherdProduct"
               ],
               "properties": {
                 "id": {
@@ -8889,6 +8936,12 @@
                   "type": "string"
                 },
                 "user_business_name": {
+                  "type": "string"
+                },
+                "formatType": {
+                  "type": "string"
+                },
+                "afterFinisherdProduct": {
                   "type": "string"
                 },
                 "published_at": {
