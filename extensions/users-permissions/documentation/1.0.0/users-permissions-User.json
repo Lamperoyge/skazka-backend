@@ -1285,9 +1285,6 @@
                 "shippingSentBack": {
                   "type": "boolean"
                 },
-                "imageType": {
-                  "type": "string"
-                },
                 "picturesTotal": {
                   "type": "integer"
                 },
@@ -1325,6 +1322,9 @@
                   "type": "string"
                 },
                 "afterFinisherdProduct": {
+                  "type": "string"
+                },
+                "customFormat": {
                   "type": "string"
                 },
                 "published_at": {

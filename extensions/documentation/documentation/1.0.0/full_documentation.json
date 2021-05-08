@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "04/14/2021 5:10:03 PM"
+    "x-generation-date": "05/08/2021 8:31:38 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -7751,14 +7751,10 @@
       },
       "Image-type": {
         "required": [
-          "id",
-          "imageType"
+          "id"
         ],
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "imageType": {
             "type": "string"
           },
           "published_at": {
@@ -7768,13 +7764,7 @@
         }
       },
       "NewImage-type": {
-        "required": [
-          "imageType"
-        ],
         "properties": {
-          "imageType": {
-            "type": "string"
-          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -8099,29 +8089,6 @@
           "shippingSentBack": {
             "type": "boolean"
           },
-          "imageType": {
-            "required": [
-              "id",
-              "imageType"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "imageType": {
-                "type": "string"
-              },
-              "published_at": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
           "picturesTotal": {
             "type": "integer"
           },
@@ -8355,6 +8322,9 @@
               "sendBack"
             ]
           },
+          "customFormat": {
+            "type": "string"
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -8382,9 +8352,6 @@
           },
           "shippingSentBack": {
             "type": "boolean"
-          },
-          "imageType": {
-            "type": "string"
           },
           "picturesTotal": {
             "type": "integer"
@@ -8423,6 +8390,9 @@
               "doneaza",
               "sendBack"
             ]
+          },
+          "customFormat": {
+            "type": "string"
           },
           "published_at": {
             "type": "string",
@@ -8902,9 +8872,6 @@
                 "shippingSentBack": {
                   "type": "boolean"
                 },
-                "imageType": {
-                  "type": "string"
-                },
                 "picturesTotal": {
                   "type": "integer"
                 },
@@ -8942,6 +8909,9 @@
                   "type": "string"
                 },
                 "afterFinisherdProduct": {
+                  "type": "string"
+                },
+                "customFormat": {
                   "type": "string"
                 },
                 "published_at": {

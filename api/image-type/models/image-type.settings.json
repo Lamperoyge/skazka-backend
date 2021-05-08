@@ -2,17 +2,13 @@
   "kind": "collectionType",
   "collectionName": "image_types",
   "info": {
-    "name": "Image Type"
+    "name": "Image Type",
+    "description": ""
   },
   "options": {
     "increments": true,
     "timestamps": true,
     "draftAndPublish": true
   },
-  "attributes": {
-    "imageType": {
-      "type": "string",
-      "required": true
-    }
-  }
+  "attributes": {}
 }

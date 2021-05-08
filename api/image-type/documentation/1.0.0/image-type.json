@@ -529,14 +529,10 @@
     "schemas": {
       "Image-type": {
         "required": [
-          "id",
-          "imageType"
+          "id"
         ],
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "imageType": {
             "type": "string"
           },
           "published_at": {
@@ -546,13 +542,7 @@
         }
       },
       "NewImage-type": {
-        "required": [
-          "imageType"
-        ],
         "properties": {
-          "imageType": {
-            "type": "string"
-          },
           "published_at": {
             "type": "string",
             "format": "date-time"

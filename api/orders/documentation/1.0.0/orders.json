@@ -681,29 +681,6 @@
           "shippingSentBack": {
             "type": "boolean"
           },
-          "imageType": {
-            "required": [
-              "id",
-              "imageType"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "imageType": {
-                "type": "string"
-              },
-              "published_at": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
           "picturesTotal": {
             "type": "integer"
           },
@@ -937,6 +914,9 @@
               "sendBack"
             ]
           },
+          "customFormat": {
+            "type": "string"
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -964,9 +944,6 @@
           },
           "shippingSentBack": {
             "type": "boolean"
-          },
-          "imageType": {
-            "type": "string"
           },
           "picturesTotal": {
             "type": "integer"
@@ -1005,6 +982,9 @@
               "doneaza",
               "sendBack"
             ]
+          },
+          "customFormat": {
+            "type": "string"
           },
           "published_at": {
             "type": "string",

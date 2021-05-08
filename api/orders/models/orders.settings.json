@@ -37,9 +37,6 @@
     "shippingSentBack": {
       "type": "boolean"
     },
-    "imageType": {
-      "model": "image-type"
-    },
     "picturesTotal": {
       "type": "integer",
       "min": 3
@@ -95,6 +92,9 @@
       ],
       "default": "doneaza",
       "required": true
+    },
+    "customFormat": {
+      "type": "string"
     }
   }
 }
