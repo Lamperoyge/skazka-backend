@@ -78,7 +78,13 @@ module.exports = {
     }
   },
   createSession: async (ctx) => {
-    const { numberOfProducts, picturesTotal } = ctx.request.body;
+    const {
+      numberOfProducts,
+      picturesTotal,
+      user_email,
+      user_cui,
+      user_business_name,
+    } = ctx.request.body;
     const stripeAmount = Math.round(
       totalPriceCalculator(numberOfProducts, picturesTotal) * 100
     );
@@ -88,6 +94,8 @@ module.exports = {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: stripeAmount,
       currency: "ron",
+      receipt_email: user_email,
+      description: `Fotografie de produs. ${numberOfProducts} produse. ${picturesTotal} fotografii per produs`,
     });
     ctx.send({
       clientSecret: paymentIntent.client_secret,
