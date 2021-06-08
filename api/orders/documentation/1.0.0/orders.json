@@ -590,7 +590,8 @@
           "id",
           "user_email",
           "charge_id",
-          "afterFinisherdProduct"
+          "afterFinisherdProduct",
+          "phone"
         ],
         "properties": {
           "id": {
@@ -917,6 +918,9 @@
           "customFormat": {
             "type": "string"
           },
+          "phone": {
+            "type": "string"
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -927,7 +931,8 @@
         "required": [
           "user_email",
           "charge_id",
-          "afterFinisherdProduct"
+          "afterFinisherdProduct",
+          "phone"
         ],
         "properties": {
           "specialInstructions": {
@@ -984,6 +989,9 @@
             ]
           },
           "customFormat": {
+            "type": "string"
+          },
+          "phone": {
             "type": "string"
           },
           "published_at": {

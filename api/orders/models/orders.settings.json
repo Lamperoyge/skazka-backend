@@ -95,6 +95,10 @@
     },
     "customFormat": {
       "type": "string"
+    },
+    "phone": {
+      "type": "string",
+      "required": true
     }
   }
 }
