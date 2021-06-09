@@ -6,7 +6,6 @@
  */
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-console.log(process.env.STRIPE_SECRET_KEY);
 const pricesThreshold = {
   small: 30,
   medium: 28,
@@ -39,6 +38,7 @@ module.exports = {
       numberOfProducts,
       picturesTotal,
       charge_id,
+      phone,
       specialInstructions,
       category,
       user_email,
@@ -61,6 +61,7 @@ module.exports = {
         charge_id,
         totalPrice: stripeAmount,
         customFormat,
+        phone,
         specialInstructions,
         category,
         user_business_name,

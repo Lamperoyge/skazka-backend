@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "edit_requests",
+  "info": {
+    "name": "editRequest",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "user_name": {
+      "type": "string",
+      "required": true
+    },
+    "user_cui": {
+      "type": "string"
+    },
+    "user_email": {
+      "type": "email",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "required": true
+    },
+    "picturesTotal": {
+      "type": "integer",
+      "required": true
+    },
+    "formatType": {
+      "model": "format"
+    },
+    "images": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": true
+    }
+  }
+}
