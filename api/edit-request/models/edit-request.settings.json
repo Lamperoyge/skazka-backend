@@ -43,6 +43,11 @@
       ],
       "plugin": "upload",
       "required": true
+    },
+    "charge_id": {
+      "type": "string",
+      "required": true,
+      "unique": true
     }
   }
 }
