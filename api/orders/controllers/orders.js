@@ -4,6 +4,7 @@
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/concepts/controllers.html#core-controllers)
  * to customize this controller
  */
+const axios = require("axios");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const pricesThreshold = {
@@ -13,23 +14,49 @@ const pricesThreshold = {
   extralarge: 20,
 };
 
-const totalPriceCalculator = (numberOfProducts, picturesTotal) => {
+const totalPriceCalculator = (
+  numberOfProducts,
+  picturesTotal,
+  discount = 0
+) => {
   let totalPrice = 0;
   switch (true) {
     case numberOfProducts <= 3:
-      return (totalPrice =
-        numberOfProducts * (picturesTotal * pricesThreshold.small));
+      totalPrice = numberOfProducts * (picturesTotal * pricesThreshold.small);
+      return totalPrice - totalPrice * (discount / 100);
     case numberOfProducts > 3 && numberOfProducts <= 6:
-      return (totalPrice =
-        numberOfProducts * (picturesTotal * pricesThreshold.medium));
+      totalPrice = numberOfProducts * (picturesTotal * pricesThreshold.medium);
+      return totalPrice - totalPrice * (discount / 100);
+
     case numberOfProducts > 6 && numberOfProducts <= 15:
-      return (totalPrice =
-        numberOfProducts * (picturesTotal * pricesThreshold.large));
+      totalPrice = numberOfProducts * (picturesTotal * pricesThreshold.large);
+      return totalPrice - totalPrice * (discount / 100);
+
     case numberOfProducts > 15:
-      return (totalPrice =
-        numberOfProducts * (picturesTotal * pricesThreshold.extralarge));
+      totalPrice =
+        numberOfProducts * (picturesTotal * pricesThreshold.extralarge);
+      return totalPrice - totalPrice * (discount / 100);
   }
-  return totalPrice;
+  return Math.round((totalPrice - totalPrice * (discount / 100)) * 100) / 100;
+};
+
+const chargeUser = async (
+  numberOfProducts,
+  picturesTotal,
+  discountPercentage,
+  user_email
+) => {
+  const stripeAmount = Math.round(
+    totalPriceCalculator(numberOfProducts, picturesTotal, discountPercentage) *
+      100
+  );
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: stripeAmount,
+    currency: "ron",
+    receipt_email: user_email,
+    description: `Fotografie de produs. ${numberOfProducts} produse. ${picturesTotal} fotografii per produs`,
+  });
+  return paymentIntent;
 };
 
 module.exports = {
@@ -48,9 +75,11 @@ module.exports = {
       customFormat,
       formatType,
       afterFinisherdProduct,
+      coupon,
     } = ctx.request.body;
     const stripeAmount = Math.round(
-      (totalPriceCalculator(numberOfProducts, picturesTotal) * 100) / 100
+      (totalPriceCalculator(numberOfProducts, picturesTotal, coupon) * 100) /
+        100
     );
     try {
       const order = await strapi.services.orders.create({
@@ -78,28 +107,37 @@ module.exports = {
       return error;
     }
   },
+  applyDiscount: async (ctx) => {
+    const { code } = ctx.request.body;
+    try {
+      const coupon = await stripe.coupons.retrieve(code);
+      ctx.send(coupon);
+    } catch (error) {
+      ctx.send(error);
+    }
+  },
   createSession: async (ctx) => {
-    const {
-      numberOfProducts,
-      picturesTotal,
-      user_email,
-      user_cui,
-      user_business_name,
-    } = ctx.request.body;
-    const stripeAmount = Math.round(
-      totalPriceCalculator(numberOfProducts, picturesTotal) * 100
-    );
+    const { numberOfProducts, picturesTotal, user_email, coupon } =
+      ctx.request.body;
 
     // charge on stripe
 
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: stripeAmount,
-      currency: "ron",
-      receipt_email: user_email,
-      description: `Fotografie de produs. ${numberOfProducts} produse. ${picturesTotal} fotografii per produs`,
-    });
-    ctx.send({
-      clientSecret: paymentIntent.client_secret,
-    });
+    try {
+      const response = await stripe.coupons.retrieve(coupon);
+      const discountPercentage = response.percent_off
+        ? response.percent_off
+        : 0;
+      const paymentIntent = await chargeUser(
+        numberOfProducts,
+        picturesTotal,
+        discountPercentage,
+        user_email
+      );
+      ctx.send({
+        clientSecret: paymentIntent.client_secret,
+      });
+    } catch (error) {
+      ctx.send(error);
+    }
   },
 };

@@ -18,6 +18,14 @@
     },
     {
       "method": "POST",
+      "path": "/orders/apply-discount",
+      "handler": "orders.applyDiscount",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
       "path": "/orders/create-checkout-session",
       "handler": "orders.createSession",
       "config": {

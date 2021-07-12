@@ -6,13 +6,30 @@
  */
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const axios = require("axios");
 
 const pricesThreshold = {
   price: 7,
 };
 
-const totalPriceCalculator = (picturesTotal) => {
-  return pricesThreshold.price * picturesTotal;
+const totalPriceCalculator = (picturesTotal, discount = 0) => {
+  const totalPrice = pricesThreshold.price * picturesTotal;
+  return totalPrice - totalPrice * (discount / 100);
+};
+
+const chargeUser = async (picturesTotal, discountPercentage, user_email) => {
+  const stripeAmount = Math.round(
+    totalPriceCalculator(picturesTotal, discountPercentage) * 100
+  );
+  // charge on stripe
+
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: stripeAmount,
+    currency: "ron",
+    receipt_email: user_email,
+    description: `Fotografie de produs.${picturesTotal} fotografii de editat`,
+  });
+  return paymentIntent;
 };
 
 module.exports = {
@@ -27,9 +44,10 @@ module.exports = {
       user_cui,
       customFormat,
       formatType,
+      coupon,
     } = ctx.request.body;
     const stripeAmount = Math.round(
-      (totalPriceCalculator(picturesTotal) * 100) / 100
+      (totalPriceCalculator(picturesTotal, coupon) * 100) / 100
     );
     try {
       const order = await strapi.services["edit-request"].create({
@@ -54,18 +72,24 @@ module.exports = {
     }
   },
   createSession: async (ctx) => {
-    const { numberOfProducts, picturesTotal, user_email } = ctx.request.body;
-    const stripeAmount = Math.round(totalPriceCalculator(picturesTotal) * 100);
-    // charge on stripe
+    const { numberOfProducts, picturesTotal, user_email, coupon } =
+      ctx.request.body;
 
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: stripeAmount,
-      currency: "ron",
-      receipt_email: user_email,
-      description: `Fotografie de produs.${picturesTotal} fotografii de editat`,
-    });
-    ctx.send({
-      clientSecret: paymentIntent.client_secret,
-    });
+    try {
+      const response = await stripe.coupons.retrieve(coupon);
+      const discountPercentage = response.percent_off
+        ? response.percent_off
+        : 0;
+      const paymentIntent = await chargeUser(
+        picturesTotal,
+        discountPercentage,
+        user_email
+      );
+      ctx.send({
+        clientSecret: paymentIntent.client_secret,
+      });
+    } catch (error) {
+      ctx.send(error);
+    }
   },
 };
