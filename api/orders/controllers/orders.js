@@ -50,12 +50,14 @@ const chargeUser = async (
     totalPriceCalculator(numberOfProducts, picturesTotal, discountPercentage) *
       100
   );
+  console.log(stripeAmount);
   const paymentIntent = await stripe.paymentIntents.create({
     amount: stripeAmount,
     currency: "ron",
     receipt_email: user_email,
     description: `Fotografie de produs. ${numberOfProducts} produse. ${picturesTotal} fotografii per produs`,
   });
+  console.log(paymentIntent);
   return paymentIntent;
 };
 
@@ -123,7 +125,8 @@ module.exports = {
     // charge on stripe
 
     try {
-      const response = await stripe.coupons.retrieve(coupon);
+      let response;
+      response = coupon ? await stripe.coupons.retrieve(coupon) : {};
       const discountPercentage = response.percent_off
         ? response.percent_off
         : 0;

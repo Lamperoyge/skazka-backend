@@ -76,7 +76,8 @@ module.exports = {
       ctx.request.body;
 
     try {
-      const response = await stripe.coupons.retrieve(coupon);
+      let response;
+      response = coupon ? await stripe.coupons.retrieve(coupon) : {};
       const discountPercentage = response.percent_off
         ? response.percent_off
         : 0;
